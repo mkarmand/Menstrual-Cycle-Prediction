@@ -2,13 +2,15 @@
 
 Aplikasi ini dibuat untuk memprediksi **kategori siklus menstruasi** berdasarkan berbagai data seperti panjang siklus, masa subur, skor menstruasi, serta faktor tambahan seperti stres, pola makan, kondisi medis, dan aktivitas fisik.
 
+[Link Aplikasi](https://menstrual-cycle-prediction-mka.streamlit.app/)  
+
 ## 🎯 Tujuan
 
 Memberikan informasi prediktif terkait kategori siklus:
 - **Normal Pendek**: 21 - 25 hari  
 - **Normal Sedang**: 26 - 30 hari  
 - **Normal Panjang**: 31 - 35 hari  
-- **Tidak Normal**: <21 atau >35 hari
+- **Tidak Normal**: Diluar 35 hari
 
 ## 📝 Fitur Input
 
