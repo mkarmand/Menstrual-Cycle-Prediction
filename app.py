@@ -7,7 +7,6 @@ import joblib
 model = joblib.load('model.pkl')
 encoder = joblib.load('encoder.pkl')
 
-
 # Judul aplikasi
 st.title("Prediksi Kategori Siklus Menstruasi")
 st.markdown("""
@@ -48,7 +47,7 @@ if submit:
     intercourse_fertile = 1 if intercourse_fertile == "Ya" else 0
     unusual_bleeding = 1 if unusual_bleeding == "Ya" else 0
 
-    # Susun input
+    # Susun input dalam DataFrame
     fitur_input = pd.DataFrame([[
         cycle_peak,
         length_cycle,
@@ -87,12 +86,15 @@ if submit:
         'MedicalConditionScore'
     ])
 
-    # Skala input
-    fitur_scaled = scaler.transform(fitur_input)
+    # Prediksi tanpa scaling
+    pred_proba = model.predict(fitur_input)
+    # Jika output model berupa probabilitas, ambil argmax
+    if pred_proba.ndim > 1 and pred_proba.shape[1] > 1:
+        pred_label_idx = np.argmax(pred_proba, axis=1)[0]
+    else:
+        pred_label_idx = pred_proba[0]  # misal output langsung label
 
-    # Prediksi
-    pred = model.predict(fitur_scaled)
-    label = encoder.inverse_transform([np.argmax(pred)])[0]
+    label = encoder.inverse_transform([pred_label_idx])[0]
 
     # Tampilkan hasil
     st.success(f"Hasil Prediksi: **{label}**")
@@ -106,4 +108,3 @@ if submit:
     }
 
     st.info(f"**Keterangan:** {deskripsi.get(label, 'Kategori tidak dikenali')}")
-
